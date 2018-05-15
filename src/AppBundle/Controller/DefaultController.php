@@ -54,7 +54,7 @@ class DefaultController extends Controller
                 ]);
             }
             $movesCount = \count($game->getMoves());
-            if ($movesCount < 8 && $movesCount % 2) {
+            if ($movesCount < 8 && $movesCount % 2 && empty($winningCombination)) {
                 $computerMove = $computerPlayerService->getMove($game);
                 $moveService->createMove($game, $computerMove, MoveEntity::PLAYER_O_MOVE);
                 $winningCombination = $gameLogicService->isWinningCombination($game, MoveEntity::PLAYER_O_MOVE);
@@ -74,7 +74,6 @@ class DefaultController extends Controller
 
         $entityManager->flush();
         $gameModel = new GameModel($game);
-
         return $this->render('default/index.html.twig', [
             'gameModel' => $gameModel,
             'result' => $result,
