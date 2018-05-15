@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="grid-container">
+    <div class="outer-grid">
+        <div class="outer-square">
+            {% for move in gameModel.allMoves %}
+                <div class="inner-grid">
+                    <div class="inner-square">
+                        {% if move == '' %}
+                            {% if result is null %}
+                                <a href="{{ path('homepage', {'move': loop.index-1 }) }}">Play here</a>
+                            {% endif %}
+                        {% else %}
+                            <span class="{{ loop.index-1 in winningCombination ? 'red' : '' }}">{{ move }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% if result %}
+    <h2>{{ result }}</h2>
+{% endif %}
+<h2><a href="{{ path('homepage') }}">Start new game</a></h2>
+{% endblock %}
+
+{% block stylesheets %}
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+    }
+    div {
+        overflow: hidden;
+        box-sizing: border-box;
+    }
+    .red {
+        color: red;
+    }
+    .outer-grid {
+        position: relative;
+        float: left;
+        width: 33.3%;
+        padding-bottom: 33.3%;
+        border: 1px solid gray;
+        background-color: #9cc;
+    }
+    .outer-square {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 90%;
+        height: 90%;
+        background-color: #ccc;
+        margin: 5%;
+        display: -webkit-flex;
+        -webkit-flex-wrap: wrap;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .inner-grid {
+        width: 33.3%;
+        height: 33.3%;
+        border: 1px solid red;
+        display: table;
+    }
+    .inner-square {
+        line-height: 100%;
+        font-size: 50px;
+        font-weight: bold;
+        display: table-cell;
+        text-align: center;
+        vertical-align: middle;
+    }
+</style>
+{% endblock %}
