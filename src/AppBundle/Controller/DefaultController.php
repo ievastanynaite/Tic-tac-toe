@@ -46,7 +46,6 @@ class DefaultController extends Controller
                 }
             } else {
                 $gameModel = new GameModel($game);
-
                 return $this->render('default/index.html.twig', [
                     'gameModel' => $gameModel,
                     'result' => $result,
@@ -74,6 +73,7 @@ class DefaultController extends Controller
 
         $entityManager->flush();
         $gameModel = new GameModel($game);
+
         return $this->render('default/index.html.twig', [
             'gameModel' => $gameModel,
             'result' => $result,
