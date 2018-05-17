@@ -60,7 +60,7 @@ class DefaultController extends Controller
                 if (!empty($winningCombination)) {
                     $result = 'O won!';
                 }
-            } else {
+            } elseif ($movesCount === 9) {
                 $game->setIsFinished(true);
                 $result = 'Draw!';
             }
